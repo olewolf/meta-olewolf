@@ -7,6 +7,7 @@ PR = "r1"
 
 SRC_URI = " \
 	http://www.harding.motd.ca/autossh/autossh-1.4c.tgz \
+	file://01fix-rpl-malloc.patch \
 "
 SRC_URI[sha256sum] = "6fcaba6a409a46bdf832086736bb8f09d245ebce11027f41d39588a95dc7fd1d"
 LICENSE = "Distributable"
@@ -16,21 +17,14 @@ S = "${WORKDIR}/autossh-1.4c"
 RDEPENDS_${PN} += "ssh"
 
 FILES_${PN} = " \
-	file://01fix-rpl-malloc.patch \
 	${bindir}/autossh \
 "
-
-do_patch () {
-	patch < 01fix-rpl-malloc.patch
-	exit 1
-}
 
 do_configure () {
 	./configure --host=${MACHINE} --prefix=${D}
 }
 
 do_compile () {
-	cd ${S}
 	make -f Makefile
 }
 
