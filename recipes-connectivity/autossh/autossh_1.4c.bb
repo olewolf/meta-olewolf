@@ -12,23 +12,20 @@ SRC_URI = " \
 SRC_URI[sha256sum] = "6fcaba6a409a46bdf832086736bb8f09d245ebce11027f41d39588a95dc7fd1d"
 LICENSE = "Distributable"
 LIC_FILES_CHKSUM = "file://autossh.spec;md5=80a6701134723fd3420e733b46a0eb97"
-S = "${WORKDIR}/autossh-1.4c"
+S = "${WORKDIR}/autossh-1.4c/"
 
 RDEPENDS_${PN} += "ssh"
 
 FILES_${PN} = " \
-	${bindir}/autossh \
+	/bin/autossh \
 "
+
+inherit autotools
 
 do_configure () {
 	./configure --host=${MACHINE} --prefix=${D}
 }
 
-do_compile () {
-	make -f Makefile
-}
-
 do_install () {
-	install -m 0755 -d ${D}${bindir}
-	install -m 0755 ${S}/autossh ${D}${bindir}
+	install -m 0755 -D ${S}autossh ${D}bin
 }
