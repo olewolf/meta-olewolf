@@ -3,6 +3,7 @@ HOMEPAGE = "http://www.harding.motd.ca/autossh/"
 SUMMARY = "Automatically restart SSH sessions and tunnels"
 DESCRIPTION = "autossh is a program to start a copy of ssh and monitor it, restarting it as necessary should it die or stop passing traffic. The idea is from rstunnel (Reliable SSH Tunnel), but implemented in C."
 PROVIDES = "autossh"
+PR = "r1"
 
 SRC_URI = " \
 	http://www.harding.motd.ca/autossh/autossh-1.4c.tgz \
@@ -19,12 +20,12 @@ FILES_${PN} = " \
 	${bindir}/autossh \
 "
 
-#do_patch_autossh_append () {
-#	patch < 01fix-rpl-malloc.patch
-#}
+do_patch () {
+	patch < 01fix-rpl-malloc.patch
+	exit 1
+}
 
 do_configure () {
-	cd ${S}
 	./configure --host=${MACHINE} --prefix=${D}
 }
 
