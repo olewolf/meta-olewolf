@@ -47,9 +47,22 @@ do_compile () {
 	oe_runmake
 }
 
-do_install () {
-	DESTDIR=${D} make install
-}
+#do_install () {
+#	# Manual install because the make script fails.
+#	install -m 0755 -d ${D}${sysconfdir}
+#	install -m 0755 -d ${D}${sysconfdir}/privoxy
+#	install -m 0755 -d ${D}${sysconfdir}/privoxy/templates
+#	install -m 0644 ${S}config ${D}${sysconfdir}/privoxy
+#	for f in ${S}templates/*; do
+#		install -m 0644 $f ${D}${sysconfdir}/privoxy/templates
+#	done
+#	for f in ${S}{default.action,default.action.master,default.filter, \
+#	              match-all.action,trust,user.action,user.filter}; do
+#		install -m 0644 $f ${D}${sysconfdir}/privoxy
+#	done
+#	install -m 0755 -d ${D}usr
+#	install -m 0755 -d ${D}{sbindir}
+#	install -m 0755 privoxy ${D}${sbindir}
+#}
 
 inherit autotools
-
