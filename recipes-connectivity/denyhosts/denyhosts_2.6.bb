@@ -10,7 +10,6 @@ DEPENDS_${PN} += " \
 	python \
 "
 RDEPENDS_${PN} += " \
-	python \
 	ssh \
 "
 PR = "r0"
@@ -27,7 +26,11 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=393a5ca445f6965873eca0259a17f833"
 
 FILES_${PN} = " \
+	/usr/share/denyhosts/*-dist \
+	/usr/share/denyhosts/*py \
 "
+
+inherit setuptools
 
 EXTRA_OECONF += " \
 "
@@ -44,6 +47,6 @@ do_unpack () {
 	exit 0
 }
 
-do_install () {
-	
-}
+#do_install () {
+#	
+#}
