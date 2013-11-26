@@ -3,7 +3,6 @@ HOMEPAGE = "http://www.boost.org/"
 SUMMARY = "Boost C++ Libraries"
 DESCRIPTION = "The Boost web site provides free, peer-reviewed, portable C++ source libraries. The emphasis is on libraries which work well with the C++ Standard Library. One goal is to establish "existing practice" and provide reference implementations so that the Boost libraries are suitable for eventual standardization. Some of the libraries have already been proposed for inclusion in the C++ Standards Committee's upcoming C++ Standard Library Technical Report."
 PROVIDES = " \
-	libboost-all${PV} \
 	libboost-atomic${PV} \
 	libboost-chrono${PV} \
 	libboost-context${PV} \
@@ -16,16 +15,15 @@ PROVIDES = " \
 	libboost-locale${PV} \
 	libboost-log${PV} \
 	libboost-math${PV} \
-	libboost-prg-exec-monitor${PV} \
 	libboost-program-options${PV} \
 	libboost-random${PV} \
 	libboost-regex${PV} \
 	libboost-serialization${PV} \
 	libboost-signals${PV} \
 	libboost-system${PV} \
-	libboost-test${PV} \
 	libboost-thread${PV} \
 	libboost-timer${PV} \
+	libboost-unit-test-framework${PV} \
 	libboost-wave${PV} \
 "
 PR = "r0"
@@ -54,18 +52,16 @@ PACKAGES = " FILES_${PN}-dbg FILES_${PN}-dev \
 	libboost-locale${PV} \
 	libboost-log${PV} \
 	libboost-math${PV} \
-	libboost-prg-exec-monitor${PV} \
 	libboost-program-options${PV} \
 	libboost-random${PV} \
 	libboost-regex${PV} \
 	libboost-serialization${PV} \
 	libboost-signals${PV} \
 	libboost-system${PV} \
-	libboost-test${PV} \
 	libboost-thread${PV} \
 	libboost-timer${PV} \
+	libboost-test-frameaork${PV} \
 	libboost-wave${PV} \
-	libboost-all${PN} \
 "
 
 #FILES_libboost-dbg += "${libdir}/.debug/*"
