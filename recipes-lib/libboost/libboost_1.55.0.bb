@@ -3,28 +3,29 @@ HOMEPAGE = "http://www.boost.org/"
 SUMMARY = "Boost C++ Libraries"
 DESCRIPTION = "The Boost web site provides free, peer-reviewed, portable C++ source libraries. The emphasis is on libraries which work well with the C++ Standard Library. One goal is to establish "existing practice" and provide reference implementations so that the Boost libraries are suitable for eventual standardization. Some of the libraries have already been proposed for inclusion in the C++ Standards Committee's upcoming C++ Standard Library Technical Report."
 PROVIDES = " \
-	libboost-atomic${PV} \
-	libboost-chrono${PV} \
-	libboost-context${PV} \
-	libboost-coroutine${PV} \
-	libboost-date-time${PV} \
-	libboost-exception${PV} \
-	libboost-filesystem${PV} \
-	libboost-graph${PV} \
-	libboost-iostreams${PV} \
-	libboost-locale${PV} \
-	libboost-log${PV} \
-	libboost-math${PV} \
-	libboost-program-options${PV} \
-	libboost-random${PV} \
-	libboost-regex${PV} \
-	libboost-serialization${PV} \
-	libboost-signals${PV} \
-	libboost-system${PV} \
-	libboost-thread${PV} \
-	libboost-timer${PV} \
-	libboost-unit-test-framework${PV} \
-	libboost-wave${PV} \
+	${BPN}-atomic \
+	${BPN}-chrono \
+	${BPN}-context \
+	${BPN}-coroutine \
+	${BPN}-date-time \
+	${BPN}-exception \
+	${BPN}-filesystem \
+	${BPN}-graph \
+	${BPN}-iostreams \
+	${BPN}-locales \
+	${BPN}-log \
+	${BPN}-math \
+	${BPN}-program-options \
+	${BPN}-random \
+	${BPN}-regex \
+	${BPN}-serialization \
+	${BPN}-signals \
+	${BPN}-system \
+	${BPN}-thread \
+	${BPN}-timer \
+	${BPN}-unit-test-framework \
+	${BPN}-wave \
+	${BPN}-dev \
 "
 PR = "r0"
 
@@ -39,56 +40,55 @@ LICENSE = "Boost"
 LIC_FILES_CHKSUM = "file://LICENSE_1_0.txt;md5=e4224ccaecb14d942c71d31bef20d78c"
 
 S = "${WORKDIR}/boost_1_55_0/"
-PACKAGES = " FILES_${PN}-dbg FILES_${PN}-dev \
-	libboost-atomic${PV} \
-	libboost-chrono${PV} \
-	libboost-context${PV} \
-	libboost-coroutine${PV} \
-	libboost-date-time${PV} \
-	libboost-exception${PV} \
-	libboost-filesystem${PV} \
-	libboost-graph${PV} \
-	libboost-iostreams${PV} \
-	libboost-locale${PV} \
-	libboost-log${PV} \
-	libboost-math${PV} \
-	libboost-program-options${PV} \
-	libboost-random${PV} \
-	libboost-regex${PV} \
-	libboost-serialization${PV} \
-	libboost-signals${PV} \
-	libboost-system${PV} \
-	libboost-thread${PV} \
-	libboost-timer${PV} \
-	libboost-test-frameaork${PV} \
-	libboost-wave${PV} \
+PACKAGES_prepend = " \
+	${BPN}-exception \
+	${BPN}-test-framework \
+	${BPN}-log \
+	${BPN}-math \
+	${BPN}-atomic \
+	${BPN}-chrono \
+	${BPN}-context \
+	${BPN}-coroutine \
+	${BPN}-date-time \
+	${BPN}-filesystem \
+	${BPN}-graph \
+	${BPN}-iostreams \
+	${BPN}-locales \
+	${BPN}-program-options \
+	${BPN}-random \
+	${BPN}-regex \
+	${BPN}-serialization \
+	${BPN}-signals \
+	${BPN}-system \
+	${BPN}-thread \
+	${BPN}-timer \
+	${BPN}-wave \
 "
 
-#FILES_libboost-dbg += "${libdir}/.debug/*"
-#FILES_libboost-dev += "${libdir}/*.so"
-FILES_libboost-atomic${PV} = " ${libdir}/libboost_atomic.so.${PV} "
-FILES_libboost-chrono${PV} = " ${libdir}/libboost_chrono.so.${PV} "
-FILES_libboost-context${PV} = " ${libdir}/libboost_context.so.${PV} "
-FILES_libboost-coroutine${PV} = " ${libdir}/libboost_coroutine.so.${PV} "
-FILES_libboost-date-time${PV} = " ${libdir}/libboost_date_time.so.${PV} "
-FILES_libboost-exception${PV} = " ${libdir}/libboost_exception.a "
-FILES_libboost-filesystem${PV} = " ${libdir}/libboost_filesystem.so.${PV} "
-FILES_libboost-graph${PV} = " ${libdir}/libboost_graph.so.${PV} "
-FILES_libboost-iostreams${PV} = " ${libdir}/libboost_iostreams.so.${PV} "
-FILES_libboost-locale${PV} = " ${libdir}/libboost_locale.so.${PV} "
-FILES_libboost-log${PV} = " ${libdir}/libboost_log*.so.${PV} "
-FILES_libboost-math${PV} = " ${libdir}/libboost_math_*.so.${PV} "
-FILES_libboost-program-options${PV} = " ${libdir}/libboost_program_options.so.${PV} "
-FILES_libboost-random${PV} = " ${libdir}/libboost_random.so.${PV} "
-FILES_libboost-regex${PV} = " ${libdir}/libboost_regex.so.${PV} "
-FILES_libboost-serialization${PV} = " ${libdir}/libboost_serialization.so.${PV} ${libdir}/libboost_serialization.so.${PV} "
-FILES_libboost-signals${PV} = " ${libdir}/libboost_signals.so.${PV} "
-FILES_libboost-system${PV} = " ${libdir}/libboost_system.so.${PV} "
-FILES_libboost-test${PV} = " ${libdir}/libboost_test_exec_monitor.a ${libdir}/libboost_unit_test_framework.so.${PV} ${libdir}/prg_exec_monitor.so.${PV} "
-FILES_libboost-thread${PV} = " ${libdir}/libboost_thread.so.${PV} "
-FILES_libboost-timer${PV} = " ${libdir}/libboost_timer.so.${PV} "
-FILES_libboost-wave${PV} = " ${libdir}/libboost_wave.so.${PV} "
-FILES_libboost-all${PV} = " ${libdir}/*.so.* "
+FILES_${BPN}-dbg += "${libdir}/.debug/*"
+FILES_${BPN}-dev += "${libdir}/*.so"
+FILES_${BPN}-atomic = " ${libdir}/${BPN}_atomic.so.* "
+FILES_${BPN}-chrono = " ${libdir}/${BPN}_chrono.so.* "
+FILES_${BPN}-context = " ${libdir}/${BPN}_context.so.* "
+FILES_${BPN}-coroutine = " ${libdir}/${BPN}_coroutine.so.* "
+FILES_${BPN}-date-time = " ${libdir}/${BPN}_date_time.so.* "
+FILES_${BPN}-exception = " ${libdir}/${BPN}_exception.a "
+FILES_${BPN}-filesystem = " ${libdir}/${BPN}_filesystem.so.* "
+FILES_${BPN}-graph = " ${libdir}/${BPN}_graph.so.* "
+FILES_${BPN}-iostreams = " ${libdir}/${BPN}_iostreams.so.* "
+FILES_${BPN}-locales = " ${libdir}/${BPN}_locale.so.* "
+FILES_${BPN}-log = " ${libdir}/${BPN}_log*.so.* "
+FILES_${BPN}-math = " ${libdir}/${BPN}_math_*.so.* "
+FILES_${BPN}-program-options = " ${libdir}/${BPN}_program_options.so.* "
+FILES_${BPN}-random = " ${libdir}/${BPN}_random.so.* "
+FILES_${BPN}-regex = " ${libdir}/${BPN}_regex.so.* "
+FILES_${BPN}-serialization = " ${libdir}/${BPN}_serialization.so.* "
+FILES_${BPN}-signals = " ${libdir}/${BPN}_signals.so.* "
+FILES_${BPN}-system = " ${libdir}/${BPN}_system.so.* "
+FILES_${BPN}-test = " ${libdir}/${BPN}_test_exec_monitor.a ${libdir}/${BPN}_unit_test_framework.so.* ${libdir}/${BPN}_prg_exec_monitor.so.* "
+FILES_${BPN}-thread = " ${libdir}/${BPN}_thread.so.* "
+FILES_${BPN}-timer = " ${libdir}/${BPN}_timer.so.* "
+FILES_${BPN}-wave = " ${libdir}/${BPN}_wave.so.* "
 
 
 do_configure () {
