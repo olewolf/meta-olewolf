@@ -4,6 +4,12 @@ SUMMARY = "SixXS Automatic IPv6 Connectivity Client Utility"
 DESCRIPTION = "This client automatically gives one IPv6 connectivity without having to manually configure interfaces etc.  One does need a SixXS account and at least a tunnel. These can be freely & gratis requested from the SixXS website.  For more information about SixXS check http://www.sixxs.net"
 PROVIDES = "aiccu"
 
+DEPENDS_${PN} = " \
+	gnutls \
+"
+RDEPENDS_${PN} = " \
+	gnutls \
+"
 SRC_URI = " \
 	http://www.sixxs.net/archive/sixxs/aiccu/unix/aiccu_current.tar.gz \
 	file://04_kfreebsd.patch \
@@ -11,7 +17,7 @@ SRC_URI = " \
 	file://07_allow_tunnels.patch \
 	file://09_binutils_gold.patch \
 "
-
+SRC_URI[md5sum] = "c9bcc83644ed788e22a7c3f3d4021350"
 SRC_URI[sha256sum] = "2260f426c13471169ccff8cb4a3908dc5f79fda18ddb6a55363e7824e6c4c760"
 LICENSE = "Proprietary"
 LIC_FILES_CHKSUM = "file://doc/LICENSE;md5=52f14a594e56aac39483fbae4c99235c"
