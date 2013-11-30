@@ -9,7 +9,7 @@ DESCRIPTION = ""
 PROVIDES = " \
 	virtual/kernel \
 "
-PR = "r0"
+PR = "r1"
 
 KERNEL_MAJOR = "3"
 KERNEL_MINOR = "12"
@@ -43,6 +43,8 @@ PACKAGES += "${PN}-modules"
 FILES_${PN}-modules = "/lib/modules/*"
 FILES_${PN} += "/boot/*"
 
+inherit autotools
+
 do_menuconfig () {
 	make menuconfig
 	exit 0
@@ -71,7 +73,7 @@ do_compile () {
 	exit 0
 }
 
-do_install_append () {
+do_install () {
 	make ${PARALLEL_MAKE} CFLAGS="${CFLAGS}" CC="${CC}" modules_install ARCH=${TARGET_ARCH} CROSS_COMPILE=${TOOLCHAIN} INSTALL_MOD_PATH=${D}/
 	install -m 0600 -D ${S}arch/${TARGET_ARCH}/boot/${KERNEL_IMAGETYPE} ${D}/boot/${KERNEL_IMAGETYPE}
 
@@ -79,6 +81,7 @@ do_install_append () {
 }
 
 do_deploy () {
+		  echo "${DEPLOY_DIR}" > /opt/openembedded/setup-scripts/out.txt
 	cp ${S}/boot/uImage ${DEPLOY_DIR}/
 	tar -cvaf ${DEPLOY_DIR}/${PN}-modules.tar.xz -C ${D} lib
 	exit 0
