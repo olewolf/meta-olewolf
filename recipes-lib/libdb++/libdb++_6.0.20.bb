@@ -11,9 +11,8 @@ PR = "r0"
 SRC_URI = " \
 	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz \
 "
-SRC_URI[md5sum] = "4109f003f461c6786066628247acf134"
-SRC_URI[sha256sum] = "baca860d7ad513654c0f9bb2619b6980fe515155f85d941686512ec9036e3b64"
-
+SRC_URI[md5sum] = "f73afcb308aefde7e6ece4caa87b22a9"
+SRC_URI[sha256sum] = "806a8a443854e339f07a62d5e010baf48203bce0bbb49e32f245184c9f522203"
 
 LICENSE = "AGPv3"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ec8b0b17cc31513fe35ab10716f8490"
