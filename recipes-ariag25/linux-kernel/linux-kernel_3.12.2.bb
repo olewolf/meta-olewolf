@@ -44,6 +44,7 @@ FILES_${PN}-modules = "/lib/modules/*"
 FILES_${PN} += "/boot/*"
 
 inherit autotools
+addtask do_deploy after do_install before do_rm_work
 
 do_menuconfig () {
 	make menuconfig
@@ -81,8 +82,14 @@ do_install () {
 }
 
 do_deploy () {
-		  echo "${DEPLOY_DIR}" > /opt/openembedded/setup-scripts/out.txt
-	cp ${S}/boot/uImage ${DEPLOY_DIR}/
-	tar -cvaf ${DEPLOY_DIR}/${PN}-modules.tar.xz -C ${D} lib
+	IMAGE_VERSION="${KERNEL_MAJOR}.${KERNEL_MINOR}.${KERNEL_REVISION}-${PV}"
+	mkdir -p ${DEPLOY_DIR}/images/${MACHINE}
+	cp ${S}arch/${TARGET_ARCH}/boot/${KERNEL_IMAGETYPE} ${DEPLOY_DIR}/images/${MACHINE}/${KERNEL_IMAGETYPE}-${IMAGE_VERSION}
+	tar -cvaf ${DEPLOY_DIR}/images/${MACHINE}/${PN}-modules-${IMAGE_VERSION}.tar.xz -C ${D} lib
+
+	rm -f ${DEPLOY_DIR}/images/${MACHINE}/${KERNEL_IMAGETYPE}
+	ln -s ${KERNEL_IMAGETYPE}-${IMAGE_VERSION} ${DEPLOY_DIR}/images/${MACHINE}/${KERNEL_IMAGETYPE}
+	rm -f ${DEPLOY_DIR}/images/${MACHINE}/${PN}-modules.tar.xz
+	ln -s ${PN}-modules-${IMAGE_VERSION}.tar.xz ${DEPLOY_DIR}/images/${MACHINE}/${PN}-modules.tar.xz
 	exit 0
 }
