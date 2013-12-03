@@ -3,7 +3,6 @@ HOMEPAGE = "http://elinks.or.cz"
 SUMMARY = "Text based browser for the command line"
 DESCRIPTION = "ELinks is an advanced and well-established feature-rich text mode web (HTTP/FTP/..) browser. ELinks can render both frames and tables, is highly customizable and can be extended via Lua or Guile scripts."
 PROVIDES = "elinks"
-RRECOMMENDS += "spidermonkey"
 DEPENDS += " \
 	virtual/gettext \
 "
