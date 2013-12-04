@@ -24,9 +24,11 @@ do_configure_prepend () {
 }
 
 do_configure () {
-	./configure --host=${TARGET_ARCH} --prefix=${D}${prefix}
+	CFLAGS="${BUILD_CFLAGS}" ./configure --host=${TARGET_ARCH} --prefix=${D}${prefix}
+	exit 0
 }
 
 fakeroot do_install () {
 	oe_runmake install MKINSTALLDIRS="mkdir -p ${D}/$1"
+	exit 0
 }

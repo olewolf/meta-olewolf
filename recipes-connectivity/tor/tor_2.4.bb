@@ -3,7 +3,7 @@ HOMEPAGE = "https://www.torproject.org"
 SUMMARY = "Communicate anonymously over the internet"
 DESCRIPTION = "Tor is a network of virtual tunnels that allows people and groups to improve their privacy and security on the Internet. It also enables software developers to create new communication tools with built-in privacy features. Tor provides the foundation for a range of applications that allow organizations and individuals to share information over public networks without compromising their privacy."
 PROVIDES = "tor"
-DEPENDS_${PN} += " \
+DEPENDS += " \
 	libevent \
 	libminiupnpc \
 "

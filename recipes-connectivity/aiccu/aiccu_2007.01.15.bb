@@ -4,12 +4,6 @@ SUMMARY = "SixXS Automatic IPv6 Connectivity Client Utility"
 DESCRIPTION = "This client automatically gives one IPv6 connectivity without having to manually configure interfaces etc.  One does need a SixXS account and at least a tunnel. These can be freely & gratis requested from the SixXS website.  For more information about SixXS check http://www.sixxs.net"
 PROVIDES = "aiccu"
 
-DEPENDS_${PN} = " \
-	gnutls \
-"
-RDEPENDS_${PN} = " \
-	gnutls \
-"
 SRC_URI = " \
 	http://www.sixxs.net/archive/sixxs/aiccu/unix/aiccu_current.tar.gz \
 	file://04_kfreebsd.patch \
@@ -23,9 +17,8 @@ LICENSE = "Proprietary"
 LIC_FILES_CHKSUM = "file://doc/LICENSE;md5=52f14a594e56aac39483fbae4c99235c"
 S = "${WORKDIR}/aiccu"
 
-DEPENDS_${PN} += "awk eglibc gnutls"
-#RDEPENDS_${PN} += "glibc gnutls"
-RDEPENDS_${PN} += "eglibc gnutls"
+DEPENDS += " gawk eglibc gnutls "
+RDEPENDS_${PN} += " eglibc gnutls "
 RRECOMMENDS_${PN} = "ntp"
 
 FILES_${PN} = " \

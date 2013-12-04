@@ -6,7 +6,7 @@ DESCRIPTION = "DenyHosts is a program that automatically blocks SSH \
  It will also inform Linux administrators about offending \
  hosts, attacked users and suspicious logins."
 PROVIDES = "denyhosts"
-DEPENDS_${PN} += " \
+DEPENDS += " \
 	python \
 "
 RDEPENDS_${PN} += " \
