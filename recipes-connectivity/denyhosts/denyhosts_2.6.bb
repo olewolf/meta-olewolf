@@ -30,10 +30,8 @@ FILES_${PN} = " \
 	/usr/share/denyhosts/*py \
 "
 
-inherit setuptools
+inherit pkg_distribute
 
-EXTRA_OECONF += " \
-"
 
 do_fetch_${PN}_append () {
 	cd ${DL_DIR}
@@ -47,6 +45,3 @@ do_unpack () {
 	exit 0
 }
 
-#do_install () {
-#	
-#}
