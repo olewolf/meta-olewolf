@@ -11,7 +11,7 @@ PR = "r5"
 SRC_URI = " \
 	git://elinks.or.cz/elinks.git;protocol=http \
 "
-SRCREV = "7b6a76da4b697174c2ede1abf8f93f031cdf44db"
+SRCREV = "${AUTOREV}"
 S = "${WORKDIR}/git/"
 
 LICENSE = "GPLv2"
@@ -23,10 +23,7 @@ do_configure_prepend () {
 	./autogen.sh
 }
 
-do_configure () {
-	CFLAGS="${BUILD_CFLAGS}" ./configure --host=${TARGET_ARCH} --prefix=${D}${prefix}
-	exit 0
-}
+EXTRA_OECONF = " CFLAGS=\"-isystem=${BUILD_CPPFLAGS}" --host=${TARGET_ARCH} --prefix=${D}${prefix}"
 
 fakeroot do_install () {
 	oe_runmake install MKINSTALLDIRS="mkdir -p ${D}/$1"
