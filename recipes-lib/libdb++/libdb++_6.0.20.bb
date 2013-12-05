@@ -4,12 +4,13 @@ SUMMARY = "Oracle Berkeley DB"
 DESCRIPTION = "Berkeley DB enables the development of custom data management solutions, without the overhead traditionally associated with such custom projects. Berkeley DB provides a collection of well-proven building-block technologies that can be configured to address any application need from the hand-held device to the datacenter, from a local storage solution to a world-wide distributed one, from kilobytes to petabytes."
 
 VIRTUAL_NAME ?= "virtual/db"
-RCONFLICTS_${PN} = "db3"
+RCONFLICTS_${PN} += " db3 "
 
 PROVIDES += " \
-	libdb++ \
 	${VIRTUAL_NAME} \
+	libdb++ \
 "
+
 PR = "r0"
 
 SRC_URI = " \
