@@ -5,22 +5,21 @@ DESCRIPTION = "Tor is a network of virtual tunnels that allows people and groups
 PROVIDES = "tor"
 DEPENDS += " \
 	libevent \
-	libminiupnpc \
 "
 RDEPENDS_${PN} += " \
 	libevent \
 "
 PR = "r0"
 
-SRCREV = "1cda452bc136de6bad4f203cea8f195599aec242"
+SRCREV = "${AUTOREV}"
 SRC_URI = " \
 	git://gitweb.torproject.org/tor.git \
 "
 
-PACKAGES = "${PN} ${PN}-dbg ${PN}-dev"
+PACKAGES = "${PN} ${PN}-dbg ${PN}-dev ${PN}-doc"
 
 LICENSE = "Proprietary"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=42880bac4780915cfdf2e8157b74b71b"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=d5601db6c1fc95a0f938a69101c505aa"
 S = "${WORKDIR}/git"
 
 FILES_${PN} = " \
@@ -28,9 +27,8 @@ FILES_${PN} = " \
 	${datadir}/tor/geoip \
 	${datadir}/tor/geoip6 \
 "
-FILES_${PN}-doc = " \
+FILES_${PN}-doc += " \
 	${sysconfdir}/tor/torrc.sample \
-	${datadir}/doc/tor/* \
 "
 
 inherit autotools
