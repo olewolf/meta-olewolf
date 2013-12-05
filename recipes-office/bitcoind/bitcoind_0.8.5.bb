@@ -17,6 +17,9 @@ DEPENDS += " libdb++ libboost-system libboost-filesystem libboost-program-option
 RDEPENDS_${PN} += " libdb++ libboost-system libboost-filesystem libboost-program-options libboost-thread libboost-chrono "
 PROVIDES = "bitcoind"
 
+FILES_${PN}-dbg += " ${bindir}/test_bitcoin "
+FILES_${PN} = " ${bindir}/bitcoin-cli ${bindir}/bitcoind "
+
 inherit autotools
 
 EXTRA_OECONF += " --with-incompatible-bdb --with-boost-libdir=${STAGING_LIBDIR}"
