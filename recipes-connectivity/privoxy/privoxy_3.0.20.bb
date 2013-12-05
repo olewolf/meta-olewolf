@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.privoxy.org/"
 SUMMARY = "HTTP proxy which increases your privacy"
 DESCRIPTION = "Privoxy is a non-caching web proxy with advanced filtering capabilities for enhancing privacy, modifying web page data and HTTP headers, controlling access, and removing ads and other obnoxious Internet junk.  Privoxy has a flexible configuration and can be customized to suit individual needs and tastes.  It has application for both stand-alone systems and multi-user networks."
 PROVIDES = "privoxy"
-DEPENDS_${PN} += " \
+DEPENDS += " \
 	libpcre \
 "
 RDEPENDS_${PN} += " \
@@ -20,23 +20,29 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 S = "${WORKDIR}/current/"
 
+inherit autotools
+
+PACKAGES = "${PN} ${PN}-doc ${PN}-dbg"
+
 FILES_${PN} = " \
 	${sbindir}/privoxy \
 	${sysconfdir}/privoxy/* \
 	${sysconfdir}/privoxy/templates/* \
 	${sysconfdir}/init.d/* \
-	${runstatedir}/run/* \
+	${localstatedir}/run/* \
 "
 FILES_${PN}-doc = " \
 	${docdir}/privoxy/* \
 	${man1dir}/privoxy.1 \
 "
-
-inherit autotools
-
+FILES_${PN}-dbg += " \
+	${prefix}/src/debug/privoxy/${PR}-${PV}/current/* \
+	${sbindir}/.debug/* \
+"
 
 EXTRA_OECONF += " \
 	--enable-zlib \
+	--prefix=/usr \
 	--sysconfdir=/etc/privoxy \
 	--localstatedir=/var \
 "
