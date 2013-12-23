@@ -23,7 +23,7 @@ FILES_${PN} = " ${bindir}/bitcoin-cli ${bindir}/bitcoind "
 inherit autotools
 
 EXTRA_OECONF += " --with-incompatible-bdb --with-boost-libdir=${STAGING_LIBDIR}"
-EXTRA_OEMAKE += " -j${PARALLEL_MAKE}"
+EXTRA_OEMAKE += "${PARALLEL_MAKE}"
 
 do_compile () {
 	# Remove "-pipe" from the options because the pipe gets too big.
