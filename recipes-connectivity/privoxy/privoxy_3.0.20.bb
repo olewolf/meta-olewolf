@@ -59,50 +59,59 @@ do_compile () {
 do_install () {
 	# Manual install because the make script bails out if the user isn't
 	# the one that is expected.
-	install -m 0750 -D ${S}privoxy ${D}${sbindir}/privoxy
-	install -m 0750 -d -D ${D}${sysconfdir}/privoxy/templates
-	for f in ${S}templates/*; do
-		install -m 0644 $f ${D}${sysconfdir}/privoxy/templates/
-	done
+	install -m 0755 -d -D ${D}${sbindir}
+	install -m 0755 ${S}privoxy ${D}${sbindir}/privoxy
+
+	install -m 0755 -d -D ${D}${sysconfdir}
+	install -m 0755 -d -D ${D}${sysconfdir}/privoxy
 	for f in ${S}{user.action,match-all.action,config,trust,default.action.master,default.filter,default.action,user.filter}; do
-		install -m 0640 $f ${D}${sysconfdir}/privoxy
+		install -m 0640 ${f} ${D}${sysconfdir}/privoxy/
 	done
-	install -m 0750 -d -D ${D}${localstatedir}/run/privoxy
+	install -m 0755 -d -D ${D}${sysconfdir}/privoxy/templates
+	for f in ${S}templates/*; do
+		install -m 0644 ${f} ${D}${sysconfdir}/privoxy/templates/
+	done
+
+	install -m 0755 -d -D ${D}${localstatedir}
+	install -m 0755 -d -D ${D}${localstatedir}/run
+	install -m 0755 -d -D ${D}${localstatedir}/run/privoxy
+
+	install -m 0755 -d ${D}${sysconfdir}/init.d
 	install -m 0755 -D ${S}debian/init.d ${D}${sysconfdir}/init.d/privoxy
 }
 
 
-pkg_preinst_${PN} () {
-	#!/bin/sh
+pkg_preinst_${PN}_append () {
+#!/bin/sh
 
-	useradd -r -M -U -s -c "Privoxy http proxy" privoxy
-	exit 0
+useradd -r -M -U -c "Privoxy http proxy" privoxy
+exit 0
 }
 
-pkg_postinst_${PN} () {
-	#!/bin/sh
+pkg_postinst_${PN}_append () {
+#!/bin/sh
 
-	chown -R privoxy:privoxy ${sysconfdir}/privoxy
-	chown -R privoxy:privoxy ${sysconfdir}
-	mkdir -p ${localstatedir}/run/privoxy
-	chown -R privoxy:privoxy ${localstatedir}/run/privoxy
-	chmod 750 ${localstatedir}/run/privoxy
-	exit 0
+chown -R privoxy:privoxy ${sysconfdir}/privoxy
+chown -R privoxy:privoxy ${sysconfdir}
+mkdir -p ${localstatedir}/run/privoxy
+chown -R privoxy:privoxy ${localstatedir}/run/privoxy
+chmod 750 ${localstatedir}/run/privoxy
+exit 0
 }
 
-pkg_prerm_${PN} () {
-	#!/bin/sh
+pkg_prerm_${PN}_append () {
+#!/bin/sh
 
-	${sysconfdir}/init.d/privoxy stop
-	exit 0
+${sysconfdir}/init.d/privoxy stop
+exit 0
 }
 
-pkg_postrm_${PN} () {
-	#!/bin/sh
+pkg_postrm_${PN}_append () {
+#!/bin/sh
 
-	userdel privoxy
-	groupdel privoxy
-	rm -rf ${localstatedir}/run/privoxy
-	exit 0
+userdel privoxy
+groupdel privoxy
+rm -rf ${localstatedir}/run/privoxy
+exit 0
 }
 
