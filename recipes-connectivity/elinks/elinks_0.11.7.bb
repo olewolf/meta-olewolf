@@ -6,7 +6,7 @@ PROVIDES = "elinks"
 DEPENDS += " \
 	virtual/gettext \
 "
-PR = "r5"
+PR = "r6"
 
 SRC_URI = " \
 	git://elinks.or.cz/elinks.git;protocol=http \
@@ -15,7 +15,7 @@ SRCREV = "${AUTOREV}"
 S = "${WORKDIR}/git/"
 
 LICENSE = "GPLv2"
-LIC_FILES_CHKSUM = "file://COPYING;md5=759ed239c8364afc037c8ab486b55f1f"
+LIC_FILES_CHKSUM = "file://COPYING;md5=6a0056b7c5071a89f43a8ad44158448d"
 
 inherit autotools
 
@@ -23,9 +23,12 @@ do_configure_prepend () {
 	./autogen.sh
 }
 
-EXTRA_OECONF = " CFLAGS=\"-isystem=${BUILD_CPPFLAGS}" --host=${TARGET_ARCH} --prefix=${D}${prefix}"
+do_configure () {
+	ARCHITECTURE="$(echo ${CPP} | sed -n -e 's/^\([^-]*\).*/\1/p')"
+	oe_runconf CFLAGS="${BUILD_CPPFLAGS}" --host=${ARCHITECTURE} --prefix=${D}${prefix}
+}
 
-fakeroot do_install () {
-	oe_runmake install MKINSTALLDIRS="mkdir -p ${D}/$1"
+do_install () {
+	make install DESTDIR="${D}" MKINSTALLDIRS="mkdir -p"
 	exit 0
 }
