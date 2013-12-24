@@ -84,7 +84,7 @@ do_install () {
 pkg_preinst_${PN}_append () {
 #!/bin/sh
 
-useradd -r -M -U -c "Privoxy http proxy" privoxy
+${sbindir}/useradd -r -M -U -c "Privoxy http proxy" -s ${sbindir}/nologin privoxy
 exit 0
 }
 
@@ -109,8 +109,8 @@ exit 0
 pkg_postrm_${PN}_append () {
 #!/bin/sh
 
-userdel privoxy
-groupdel privoxy
+${sbindir}/userdel privoxy
+${sbindir}/groupdel privoxy
 rm -rf ${localstatedir}/run/privoxy
 exit 0
 }
