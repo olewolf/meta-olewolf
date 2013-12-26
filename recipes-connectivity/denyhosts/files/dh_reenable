@@ -1,0 +1,100 @@
+#!/usr/bin/python
+# This program help sysadmin to reenable a hosts blocked by denyhosts.
+#
+# dh_reenable (c) 2008 Marco Bertorello <marco@bertorello.ns0.it> and is
+# free software. You can use, modify and redistribute it under terms of
+# GNU General Public License version 2 or later, as you whish, as published by
+# Free Software Foundation.
+#
+# You can get a full copy of license here:
+#
+# http://www.gnu.org/licenses/gpl-2.0.txt
+#
+# and
+#
+# http://www.gnu.org/licenses/gpl-3.0.txt
+
+
+from __future__ import with_statement
+import os
+import sys
+import fileinput
+import re
+
+if os.getuid():
+	print "You need to be root to run %s" % sys.argv[0]
+	sys.exit(1)
+
+# file definition:
+
+HOSTSFILE='/var/lib/denyhosts/hosts'
+HOSTRESTFILE='/var/lib/denyhosts/hosts-restricted'
+HOSTROOTFILE='/var/lib/denyhosts/hosts-root'
+HOSTVALIDFILE='/var/lib/denyhosts/hosts-valid'
+HOSTSDENY='/etc/hosts.deny'
+#TEST='/etc/hosts.deny.tmp'
+CONFIGFILE='/etc/denyhosts.conf'
+
+# Parse the configuration file for the location of the HOSTS_DENY file.
+# If it exists, overwrite the hard-coded value for HOSTSDENY from the
+# top of the file.
+if os.path.isfile(CONFIGFILE):
+    with open(CONFIGFILE) as file:
+	for line in file:
+	    result = re.search('^(HOSTS_DENY\s*=\s*)(.*)', line)
+	    if result != None:
+		HOSTSDENY = result.group(2)
+
+def usage():
+	 print "Usage:"
+         print sys.argv[0]+"     --help: Show this help"
+         print sys.argv[0]+"       <IP>: check if the ip address was denied and reenable it"
+         print sys.argv[0]+" <HOSTNAME>: check if the hostname was denied and reenable it"
+
+try:
+	host=sys.argv[1]
+except:
+	print sys.argv[0]+" need a hostname or a ip address input. See --help."
+	sys.exit(1)
+
+if host == "--help":
+        usage()
+        sys.exit(1)
+
+def search(file_txt,host):
+	for lines in fileinput.FileInput(file_txt, inplace=1): 	
+	 	lines = lines.strip()
+	 	if lines.find(host) != -1: 
+			continue
+		else:
+	 		print lines
+
+
+try:
+	search(HOSTSFILE,host)
+except:
+	print "Problem parsing file "+HOSTSFILE
+	sys.exit(1)
+try:
+	search(HOSTRESTFILE,host)
+except:
+	print "Problem parsing file "+HOSTRESTFILE
+	sys.exit(1)
+try:
+	search(HOSTROOTFILE,host)
+except:
+        print "Problem parsing file "+HOSTROOTFILE
+	sys.exit(1)
+try:
+	search(HOSTVALIDFILE,host)
+except:
+        print "Problem parsing file "+HOSTVALIDFILE
+	sys.exit(1)
+try:
+	search(HOSTSDENY,host)
+except:
+        print "Problem parsing file "+HOSTSDENY
+	sys.exit(1)
+
+print "Done!"
+print "Please restart denyhosts"

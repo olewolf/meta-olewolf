@@ -1,0 +1,15 @@
+--- ./daemon-control-dist.orig	2013-12-25 11:45:51.670431646 +0100
++++ ./daemon-control-dist	2013-12-25 11:46:19.250432927 +0100
+@@ -11,9 +11,9 @@
+ #### Edit these to suit your configuration ####
+ ###############################################
+ 
+-DENYHOSTS_BIN   = "/usr/bin/denyhosts.py"
+-DENYHOSTS_LOCK  = "/var/lock/subsys/denyhosts"
+-DENYHOSTS_CFG   = "/usr/share/denyhosts/denyhosts.cfg"
++DENYHOSTS_BIN   = "/usr/sbin/denyhosts"
++DENYHOSTS_LOCK  = "/run/denyhosts.pid"
++DENYHOSTS_CFG   = "/etc/denyhosts.cfg"
+ 
+ PYTHON_BIN      = "/usr/bin/env python"
+ 

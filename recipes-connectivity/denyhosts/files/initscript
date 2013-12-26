@@ -1,0 +1,99 @@
+#! /bin/sh 
+#
+# Init script for denyhosts
+#
+# Author:	Marco Bertorello <marco@bertorello.ns0.it>.
+#
+### BEGIN INIT INFO
+# Provides:          denyhosts
+# Required-Start:    $syslog $local_fs $remote_fs $time
+# Required-Stop:     $syslog $local_fs $remote_fs 
+# Should-Start:      $network
+# Should-Stop:       $network
+# Default-Start:     2 3 4 5
+# Default-Stop:	     0 1 6
+# Short-Description: Start/stop denyhosts
+# Description:       Start/stop denyhosts, a daemon that automatically blocks
+#                    SSH brute-force attacks by adding entries to /etc/hosts.deny
+### END INIT INFO
+
+
+# Using LSB funtions:
+. /lib/lsb/init-functions
+
+set -e
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DESC="DenyHosts"
+NAME=denyhosts
+DAEMON=/usr/bin/python
+DAEMONCTL=/usr/share/denyhosts/denyhosts_ctl.py
+PIDFILE=/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+CONFIG=/etc/denyhosts.conf
+FLAGS="--purge --config=$CONFIG"
+
+# Function that starts the daemon/service.
+d_start() {
+	# Gracefully exit if the package has been removed.
+	test -x $DAEMON || exit 5
+	test -e $CONFIG || (log_failure_msg "Config file doesn't exists!" && log_end_msg 1)
+
+	#check if HOSTS_DENY file exist 
+	HOSTS_DENY=$(grep ^HOSTS_DENY $CONFIG  | cut -d = -f 2)
+	test -e $HOSTS_DENY || touch $HOSTS_DENY
+
+	if [ -e $PIDFILE ]; then
+		pid=$(cat $PIDFILE)
+		if kill -0 "$pid" > /dev/null; then
+			log_success_msg "$DESC already running"
+			return
+		else
+			log_success_msg "Removing stale PID file $PIDFILE."
+			rm -f $PIDFILE
+		fi
+	fi
+	log_daemon_msg "Starting $DESC" "$NAME"
+	start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON --startas $DAEMONCTL -- start $FLAGS >/dev/null
+	log_end_msg $?
+	cgclassify -g cpu:batchjob `ps aux | grep denyhosts | sed -n -e 's/[a-z]\+[[:space:]]\+\([0-9]\+\).*python.*/\1/p'`
+}
+
+# Function that stops the daemon/service.
+d_stop() {
+	if [ -e $PIDFILE ]; then
+		pid=$(cat $PIDFILE)
+		if kill -0 "$pid" > /dev/null; then
+			log_daemon_msg "Stopping $DESC" "$NAME"
+			start-stop-daemon --stop --quiet --pidfile $PIDFILE
+			log_end_msg $?
+		else
+			log_failure_msg "I can't stop $DESC" "Maybe it's NOT running?"
+			rm -f $PIDFILE
+		fi
+	fi
+}
+
+# Function that sends a SIGHUP to the daemon/service.
+case "$1" in
+  start)
+        d_start
+	;;
+  stop)
+        d_stop
+	;;
+  restart|force-reload)
+	d_stop || /bin/true
+	sleep 1
+	d_start
+	;;
+  status)
+	status_of_proc -p $PIDFILE $DAEMON $NAME
+	;;
+  *)
+	log_daemon_msg "Usage: $SCRIPTNAME {start|stop|restart|force-reload|status}" >&2
+	exit 3
+	;;
+esac
+
+exit 0

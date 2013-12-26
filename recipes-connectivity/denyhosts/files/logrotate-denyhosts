@@ -1,0 +1,16 @@
+/var/log/denyhosts {
+	create 0640 root adm
+	missingok
+	weekly
+	rotate 7
+	compress
+	delaycompress
+	notifempty
+	postrotate
+		if [ -x /usr/sbin/invoke-rc.d ]; then \
+			invoke-rc.d denyhosts restart > /dev/null; \
+		else \
+			/etc/init.d/denyhosts restart > /dev/null; \
+		fi
+	endscript
+}

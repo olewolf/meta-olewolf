@@ -1,0 +1,33 @@
+--- ./denyhosts.cfg-dist.orig	2013-12-25 11:52:43.790450787 +0100
++++ ./denyhosts.cfg-dist	2013-12-25 11:55:16.742457891 +0100
+@@ -24,6 +24,8 @@
+ # Mac OS X (v10.3 or earlier):
+ #SECURE_LOG=/private/var/log/system.log
+ #
++# Debian:
++SECURE_LOG = /var/log/auth.log
+ ########################################################################
+ 
+ ########################################################################
+@@ -150,7 +152,7 @@
+ # Note: it is recommended that you use an absolute pathname
+ # for this value (eg. /home/foo/denyhosts/data)
+ #
+-WORK_DIR = /usr/share/denyhosts/data
++WORK_DIR = /var/lib/denyhosts
+ #
+ #######################################################################
+ 
+@@ -192,10 +194,10 @@
+ # running at a time.
+ #
+ # Redhat/Fedora:
+-LOCK_FILE = /var/lock/subsys/denyhosts
++#LOCK_FILE = /var/lock/subsys/denyhosts
+ #
+ # Debian
+-#LOCK_FILE = /var/run/denyhosts.pid
++LOCK_FILE = /var/run/denyhosts.pid
+ #
+ # Misc
+ #LOCK_FILE = /tmp/denyhosts.lock
