@@ -7,6 +7,13 @@ PR = "r0"
 inherit core-image
 DISTRO_TYPE = "debug"
 
+WINDOWS_MANAGER = " \
+	openbox \
+	obconf \
+	obmenu \
+	tint2 \
+"
+
 # Configure the package manager.
 FEED_CONFIGS = "angstrom-feed-configs"
 EXTRAOPKGCONFIG = "opkg-config-base ${FEED_CONFIGS}"
@@ -87,9 +94,11 @@ IMAGE_INSTALL = "\
 	kernel-modules \
 	${CONMANPKGS} \
 	cpufreq-tweaks \
+	avahi-daemon \
 	wget \
 	bash \
 	vim \
+	${WINDOWS_MANAGER} \
 "
 # emacs breaks the system because qemu doesn't work.
 
