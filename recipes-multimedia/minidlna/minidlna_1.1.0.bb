@@ -1,5 +1,5 @@
 MAINTAINER = "Ole Wolf <ole@naturloven.dk>"
-HOMEPAGE = ""
+HOMEPAGE = "http://sourceforge.net/projects/minidlna/"
 SUMMARY = "lightweight DLNA/UPnP-AV server targeted at embedded systems"
 DESCRIPTION = "MiniDLNA (aka ReadyDLNA) is server software with the aim of being fully compliant with DLNA/UPnP-AV clients.  The minidlna daemon serves media files (music, pictures, and video) to clients on your network.  Example clients include applications such as totem and xbmc, and devices such as portable media players, smartphones, and televisions."
 PROVIDES = "minidlna"
