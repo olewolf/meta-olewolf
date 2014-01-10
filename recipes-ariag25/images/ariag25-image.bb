@@ -83,6 +83,10 @@ IMAGE_FEATURES += " \
 	debug-tweaks \
 "
 
+FIRMWARE += " \
+	linux-firmware-rtl8192cu \
+"
+
 IMAGE_INSTALL = "\
 	task-core-boot \
 	${MACHINE_ESSENTIAL_EXTRA_RDEPENDS} \
@@ -90,17 +94,18 @@ IMAGE_INSTALL = "\
 	${ROOTFS_PKGMANAGE_PKGS} \
 	systemd \
 	kernel-modules \
+	${FIRMWARE} \
 	${CONMANPKGS} \
 	cpufreq-tweaks \
 	emacs \
 	wget \
 	netbase \
-	tor \
-	aiccu \
 	elinks \
-	privoxy \
 	denyhosts \
 "
+#	aiccu \
+#	tor \
+#	privoxy \
 #	bitcoind \
 #	apparmor
 #	base-files \
