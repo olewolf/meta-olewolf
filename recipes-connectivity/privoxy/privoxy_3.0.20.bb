@@ -5,6 +5,7 @@ DESCRIPTION = "Privoxy is a non-caching web proxy with advanced filtering capabi
 PROVIDES = "privoxy"
 DEPENDS += " \
 	libpcre \
+	shadow \
 "
 RDEPENDS_${PN} += " \
 	libpcre \
@@ -53,7 +54,7 @@ do_configure_prepend () {
 }
 
 do_compile () {
-	pmake="mkdir -p" oe_runmake
+	oe_runmake
 }
 
 do_install () {
@@ -72,8 +73,6 @@ do_install () {
 		install -m 0644 ${f} ${D}${sysconfdir}/privoxy/templates/
 	done
 
-	install -m 0755 -d -D ${D}${localstatedir}
-	install -m 0755 -d -D ${D}${localstatedir}/run
 	install -m 0755 -d -D ${D}${localstatedir}/run/privoxy
 
 	install -m 0755 -d ${D}${sysconfdir}/init.d
@@ -81,37 +80,23 @@ do_install () {
 }
 
 
-pkg_preinst_${PN}_append () {
-#!/bin/sh
-
-${sbindir}/useradd -r -M -U -c "Privoxy http proxy" -s ${sbindir}/nologin privoxy
-exit 0
-}
-
 pkg_postinst_${PN}_append () {
 #!/bin/sh
 
-chown -R privoxy:privoxy ${sysconfdir}/privoxy
-chown -R privoxy:privoxy ${sysconfdir}
-mkdir -p ${localstatedir}/run/privoxy
-chown -R privoxy:privoxy ${localstatedir}/run/privoxy
-chmod 750 ${localstatedir}/run/privoxy
-exit 0
+useradd -r -M -U -c "Privoxy http proxy" -s ${sbindir}/nologin privoxy
+chown -R privoxy:privoxy ${sysconfdir}/privoxy ${localstatedir}/run/privoxy
 }
 
 pkg_prerm_${PN}_append () {
 #!/bin/sh
 
 ${sysconfdir}/init.d/privoxy stop
-exit 0
 }
 
 pkg_postrm_${PN}_append () {
 #!/bin/sh
 
-${sbindir}/userdel privoxy
-${sbindir}/groupdel privoxy
+userdel privoxy
+groupdel privoxy
 rm -rf ${localstatedir}/run/privoxy
-exit 0
 }
-
