@@ -53,7 +53,7 @@ do_configure_prepend () {
 }
 
 do_compile () {
-	oe_runmake
+	pmake="mkdir -p" oe_runmake
 }
 
 do_install () {
