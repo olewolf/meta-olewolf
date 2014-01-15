@@ -1,6 +1,6 @@
 MAINTAINER = "Ole Wolf <ole@naturloven.dk>"
 HOMEPAGE = "http://www.gnome.org"
-SUMMARY = "GTK+ graphica user interface library"
+SUMMARY = "GTK+ graphical user interface library"
 DESCRIPTION = "GTK+ is a multi platform tool for creating graphical user interfaces."
 PROVIDES = "gtk+-2.0"
 #DEPENDS += " \

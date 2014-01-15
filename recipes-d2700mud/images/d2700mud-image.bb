@@ -99,6 +99,7 @@ IMAGE_INSTALL = "\
 	bash \
 	vim \
 	${WINDOWS_MANAGER} \
+	usb-modeswitch \
 "
 # emacs breaks the system because qemu doesn't work.
 
