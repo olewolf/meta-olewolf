@@ -15,5 +15,5 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=9c81bd31a37abe2f452daab1f76bd783"
 S = "${WORKDIR}/${PN}-${PV}/"
 
-inherit pkg_distribute
+#inherit pkg_distribute
 

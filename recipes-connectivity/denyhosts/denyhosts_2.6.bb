@@ -31,7 +31,7 @@ S = "${WORKDIR}/${PN}-${PV}/"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=393a5ca445f6965873eca0259a17f833"
 
-inherit pkg_distribute
+#inherit pkg_distribute
 addtask fixfoldername before do_patch after do_unpack
 
 PACKAGES = "${PN} ${PN}-doc"
