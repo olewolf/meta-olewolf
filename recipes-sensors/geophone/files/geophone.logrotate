@@ -1,0 +1,15 @@
+/var/lib/geophone/geophone.log {
+	daily
+	size 4M
+	create 644
+	rotate 7
+	nomail
+	compress
+	notifempty
+	missingok
+	postrotate
+		#systemctl restart geophone-logger
+		killall -TERM geophone-read-serial
+		/usr/bin/geophone-read-serial /dev/ttyS0 > /var/lib/geophone/geophone.log &
+	endscript
+}
