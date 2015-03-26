@@ -1,16 +1,13 @@
 [Unit]
-Description=Geophone logger
+Description=Geophone data logger
 Wants=connman
-Wants=nginx
+Wants=lighttpd
 #After=
 
 [Service]
 Type=simple
-#ExecStartPre=
 WorkingDirectory=/var/lib/geophone
-ExecStart=/usr/bin/geophone-logger
-#ExecStopPost=
-#User=
+ExecStart=/usr/bin/geophone-service.sh
 
 [Install]
 WantedBy=multi-user.target

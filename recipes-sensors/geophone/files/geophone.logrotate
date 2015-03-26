@@ -8,8 +8,6 @@
 	notifempty
 	missingok
 	postrotate
-		#systemctl restart geophone-logger
-		killall -TERM geophone-read-serial
-		/usr/bin/geophone-read-serial /dev/ttyS0 > /var/lib/geophone/geophone.log &
+		systemctl restart geophone
 	endscript
 }

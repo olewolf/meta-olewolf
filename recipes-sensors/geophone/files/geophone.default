@@ -1,0 +1,5 @@
+# Serial port where the geophone data logger is attached.
+PORT=/dev/ttyACM0
+
+# Log file for the geophone data output.
+LOG_FILE=/var/lib/geophone/geophone.log
