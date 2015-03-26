@@ -14,7 +14,7 @@ SRC_URI = " \
 	file://geophone-rotate-heatmap \
 	file://geophone-rotate-heatmap.cron \
 	file://geophone.logrotate \
-	file://geophone.service file://geophone-service.sh \
+	file://geophone.service file://geophone-service.sh file://geophone.default \
 	file://www/nav-first.png \
 	file://www/nav-previous.png \
 	file://www/nav-next.png \
