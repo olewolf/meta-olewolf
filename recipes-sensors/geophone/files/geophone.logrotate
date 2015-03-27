@@ -1,8 +1,8 @@
 /var/lib/geophone/geophone.log {
 	daily
-	size 4M
+	size 8M
 	create 644
-	rotate 7
+	rotate 2
 	nomail
 	compress
 	notifempty

@@ -6,7 +6,7 @@ TIMESTAMP_FILE=timestamp
 GEOPHONE_IMAGES=/www/pages/geophone
 
 # Number of days after which old heatmap images are deleted.
-CLEANUP_AGE=5
+CLEANUP_AGE=7
 
 #for f in ${REQUIRED}; do
 #	if ! which $f >/dev/null; then
