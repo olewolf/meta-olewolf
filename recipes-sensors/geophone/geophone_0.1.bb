@@ -35,6 +35,7 @@ RDEPENDS_${PN} += " \
 	logrotate \
 	cronie \
 	perl \
+	perl-module-time-piece \
 	imagemagick \
 	lighttpd \
 	lighttpd-module-cgi \
@@ -78,7 +79,7 @@ do_compile () {
 
 do_install () {
 	install -m 0755 -d -D ${D}/usr/bin
-	install -m 0755 ${S}/createheatmap.pl ${D}/usr/bin/geophone-createheatmap
+	install -m 0755 ${S}/createheatmap.pl ${D}/usr/bin/geophone-create-heatmap
 	install -m 0755 ${S}/filter-log.pl ${D}/usr/bin/geophone-filter-log
 	install -m 0755 ${S}/geophone-log-serial ${D}/usr/bin/
 	install -m 0755 ${WORKDIR}/geophone-rotate-heatmap ${D}/usr/bin/
