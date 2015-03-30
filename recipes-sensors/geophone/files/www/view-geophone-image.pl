@@ -123,7 +123,7 @@ print "<body>";
 print "<div id=\"geodata\">\n";
 
 print "<div id=\"heatmap\">";
-print "<img style=\"width: $image_width" . "px;\" src=\"geophone/$image_filename\" id=\"geodata_heatmap\" />";
+print "<img src=\"geophone/$image_filename\" id=\"geodata_heatmap\" />";
 print "</div>\n";
 
 print "<div id=\"geodata-navigation\"><ul>";
