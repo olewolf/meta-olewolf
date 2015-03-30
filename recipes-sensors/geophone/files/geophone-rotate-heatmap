@@ -41,12 +41,14 @@ TIMESTAMP_NOW_TEXT="$(date -d @${TIMESTAMP_NOW} "+${DATE_FORMAT}")"
 
 # Combine the most recent rotation and the current log.
 COMBINED_LOG="$(mktemp)"
-LOGFILE="geophone.log"
+LOGFILE="${GEODATADIR}/geophone.log"
 if [[ -e ${LOGFILE}.1 ]]; then
 	cat ${LOGFILE}.1 ${LOGFILE} > ${COMBINED_LOG}
 elif [[ -e ${LOGFILE}.1.gz ]]; then
 	zcat ${LOGFILE}.1.gz > ${COMBINED_LOG}
 	cat ${LOGFILE} >> ${COMBINED_LOG}
+else
+	cat ${LOGFILE} > ${COMBINED_LOG}
 fi
 
 # Filter the desired date range from the combined log.
@@ -68,4 +70,4 @@ fi
 rm -f ${WORK_LOG}
 
 # Delete old images.
-find ${GEODATADIR} -mtime +${CLEANUP_AGE} -delete
+find ${GEODATADIR} -mtime +${CLEANUP_AGE} -exec rm -f {} \;

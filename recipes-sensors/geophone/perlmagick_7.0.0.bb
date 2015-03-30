@@ -10,11 +10,16 @@ PROVIDES = "perlmagick imagemagick"
 LICENSE = "ImageMagick"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=0887b670be7ef0c3cb37092b64d57514"
 
-DEPENDS += " perl perl-native "
-
-SRC_URI = " \
-	svn://subversion.imagemagick.org/subversion/ImageMagick;module=trunk;protocol=https \
+DEPENDS += " perl-native "
+RDEPENDS_${PN} += " \
+	perl \
+	perl-module-carp \
+	perl-module-parent \
+	perl-module-dynaloader \
+	perl-module-autoloader \
 "
+
+SRC_URI = "svn://subversion.imagemagick.org/subversion/ImageMagick;module=trunk;protocol=https"
 SRCREV = "${AUTOREV}"
 S = "${WORKDIR}/trunk"
 
@@ -29,30 +34,6 @@ PACKAGECONFIG[jp2] = "--with-jp2,--without-jp2,jasper"
 #                ${libdir}/ImageMagick-${PV}/modules-Q16/filters \
 #                ${libdir}/ImageMagick-${PV}/modules-Q16/coders \
 #                ${libdir}/ImageMagick-${PV}/config-Q16
-
-# For PerlMagick:
-#Installing /home/wolf/tmp/imagick7/lib/x86_64-linux-gnu/perl/5.20.2/auto/Image/Magick/Magick.so
-#Installing /home/wolf/tmp/imagick7/lib/x86_64-linux-gnu/perl/5.20.2/auto/Image/Magick/Q16HDRI/Q16HDRI.so
-#Installing /home/wolf/tmp/imagick7/lib/x86_64-linux-gnu/perl/5.20.2/Image/Magick.pm
-#Installing /home/wolf/tmp/imagick7/lib/x86_64-linux-gnu/perl/5.20.2/Image/Magick/Q16HDRI.pm
-#Installing /home/wolf/tmp/imagick7/lib/x86_64-linux-gnu/perl/5.20.2/auto/Image/Magick/Q16HDRI/autosplit.ix
-#Installing /home/wolf/tmp/imagick7/man/man3/Image::Magick::Q16HDRI.3pm
-#Installing /home/wolf/tmp/imagick7/man/man3/Image::Magick.3pm
-#Appending installation info to /home/wolf/tmp/imagick7/lib/x86_64-linux-gnu/perl/5.20.2/perllocal.pod
-
-#FILES_${PN}-dbg += "${libdir}/ImageMagick-${PV}/modules-Q16/*/.debug/* \
-#	${libdir}/perl/*/auto/Image/Magick/Q16HDRI/.debug \
-#"
-#	/usr/lib/perl/5.14.3/auto/Image/Magick/.debug \
-#
-#FILES_${PN} += " \
-#	${libdir}/ImageMagick-${PV} \
-#	${datadir}/ImageMagick-7 \
-#	${libdir}/perl/ \
-#"
-
-#FILES_${PN}-dev += "${libdir}/ImageMagick-${PV}/modules-Q16/*/*.a"
-#FILES_${PN}-doc += "/usr/man"
 
 FILES_${PN}-dbg =+ " \
 	usr/lib/perl/5.14.3/auto/Image/Magick/.debug \
@@ -70,7 +51,6 @@ BBCLASSEXTEND = "native"
 
 LEAD_SONAME = "libMagickCore.so.*"
 
-#OECONF_OPTIONS = "--program-prefix= --program-suffix=.im7 --without-x --disable-openmp --without-xml --disable-opencl --with-quantum-depth=16 --with-sysroot=${PKG_CONFIG_SYSROOT_DIR} --prefix=${PKG_CONFIG_SYSROOT_DIR}${prefix}"
 OECONF_OPTIONS = "--without-x --disable-openmp --without-xml --disable-opencl --with-quantum-depth=16 --with-sysroot=${PKG_CONFIG_SYSROOT_DIR} --prefix=${PKG_CONFIG_SYSROOT_DIR}${prefix}"
 
 EXTRA_OECONF = "${OECONF_OPTIONS}"

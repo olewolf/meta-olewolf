@@ -7,7 +7,7 @@ SUMMARY = "Geophone data logger and visualizer"
 DESCRIPTION = "${SUMMARY}"
 PROVIDES = "geophone-logger"
 
-PR = "1"
+PR = "3"
 
 SRC_URI = " \
 	git://github.com/olewolf/geophone.git;protocol=https \
@@ -36,11 +36,20 @@ RDEPENDS_${PN} += " \
 	cronie \
 	perl \
 	perl-module-time-piece \
-	imagemagick \
 	lighttpd \
 	lighttpd-module-cgi \
 	liberation-fonts \
+	perlmagick \
 "
+# perl-module-exporter-heavy perl-module-exporter   perl-module-integer \
+#   perl-module-time-local \
+#  perl-module-constant perl-module-time-seconds perl-module-constant
+# perl-module-mro perl-module-scalar-util
+# perl-module-xsloader perl-module-list-util perlmodule-scalar-util-pp
+# perl-module-list-util perl-module-b
+#
+# -? perl-module-time-gmtime -> perl-module-time-tm perl-module-class-struct
+
 RRECOMMENDS_${PN} += " ntp "
 
 inherit systemd
