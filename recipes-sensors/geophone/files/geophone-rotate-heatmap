@@ -28,8 +28,14 @@ if [[ -e ${GEODATADIR}/${TIMESTAMP_FILE} ]]; then
 	LAST_TIMESTAMP=$(cat ${GEODATADIR}/${TIMESTAMP_FILE})
 	LAST_TIMESTAMP=$((LAST_TIMESTAMP + 1 ))
 else
-	LAST_TIMESTAMP="0"
+	LAST_TIMESTAMP=0
 fi
+# To avoid system overload we'll ignore data older than two hours ago.
+TWO_HOURS_AGO=$(( ${TIMESTAMP_NOW} - 120 ))
+if [ ${LAST_TIMESTAMP} -lt ${TWO_HOURS_AGO} ]; then
+	LAST_TIMESTAMP=${TWO_HOURS_AGO}
+fi
+# Store new timestamp.
 echo "${TIMESTAMP_NOW}" > ${GEODATADIR}/${TIMESTAMP_FILE}
 
 cd ${GEODATADIR}

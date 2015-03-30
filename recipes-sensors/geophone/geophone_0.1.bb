@@ -7,7 +7,7 @@ SUMMARY = "Geophone data logger and visualizer"
 DESCRIPTION = "${SUMMARY}"
 PROVIDES = "geophone-logger"
 
-PR = "3"
+PR = "6"
 
 SRC_URI = " \
 	git://github.com/olewolf/geophone.git;protocol=https \
@@ -22,6 +22,7 @@ SRC_URI = " \
 	file://www/style.css \
 	file://www/view-geophone-image.pl \
 	file://geophone-cgi.conf \
+	file://lighttpd.logrotate \
 "
 SRCREV = "${AUTOREV}"
 LICENSE = "GPLv3"
@@ -120,4 +121,5 @@ do_install () {
 	install -m 0644 ${WORKDIR}/www/style.css ${D}/${WEB_ROOT}/
 	install -m 0755 ${WORKDIR}/www/view-geophone-image.pl ${D}/${WEB_ROOT}/
 	install -m 0755 -d -D ${D}/${WEB_ROOT}/geophone
+	install -m 0644 ${WORKDIR}lighttpd.logrotate ${D}/etc/logrotate.d/lighttpd
 }
