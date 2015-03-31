@@ -60,14 +60,15 @@ zcat ${LOGFILE} | geophone-filter-log ${LAST_TIMESTAMP_TEXT} ${TIMESTAMP_NOW_TEX
 # Create a new heatmap and rotate the older ones.
 CURRENT_HEATMAP=$( mktemp --suffix=.jpg )
 geophone-create-heatmap ${WORK_LOG} ${CURRENT_HEATMAP}
-if [[ -s ${CURRENT_HEATMAP}.jpg ]]; then
+if [[ -s ${CURRENT_HEATMAP} ]]; then
 	if [[ -e ${GEOPHONE_IMAGES}/geophone.jpg ]]; then
 		mv ${GEOPHONE_IMAGES}/geophone.jpg ${GEOPHONE_IMAGES}/geophone-${LAST_TIMESTAMP}.jpg
 	fi
 	chmod 644 ${CURRENT_HEATMAP}
 	mv ${CURRENT_HEATMAP} ${GEOPHONE_IMAGES}/geophone.jpg
+else
+	rm -f ${CURRENT_HEATMAP}
 fi
-rm -f ${CURRENT_HEATMAP}
 rm -f ${WORK_LOG}
 
 # Delete old images.
