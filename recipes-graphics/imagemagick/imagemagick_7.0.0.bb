@@ -14,6 +14,16 @@ PR = "1"
 
 DEPENDS += " \
 	perl-native \
+	jpeg \
+	libpng \
+	tiff \
+	librsvg \
+	freetype \
+	libexif \
+	pango \
+	cairo \
+	libwmf \
+	zlib \
 "
 
 SRC_URI = "svn://subversion.imagemagick.org/subversion/ImageMagick;module=trunk;protocol=https"
@@ -51,9 +61,19 @@ RDEPENDS_${PN}-perlmagick = " \
 	perl-module-parent \
 	perl-module-dynaloader \
 	perl-module-autoloader \
+	jpeg \
+	libpng \
+	tiff \
+	librsvg \
+	freetype \
+	libexif \
+	pango \
+	cairo \
+	libwmf \
+	zlib \
 "
 
-OECONF_OPTIONS = "--without-x --without-xml --disable-openmp --disable-opencl --with-quantum-depth=16 --with-sysroot=${PKG_CONFIG_SYSROOT_DIR} --prefix=${PKG_CONFIG_SYSROOT_DIR}${prefix}"
+OECONF_OPTIONS = "--with-jpeg --with-tiff --with-png --with-webp --with-rsvg --with-freetype --with-fontconfig --with-dps --without-x --without-xml --disable-openmp --disable-opencl --with-quantum-depth=16 --with-sysroot=${PKG_CONFIG_SYSROOT_DIR} --prefix=${PKG_CONFIG_SYSROOT_DIR}${prefix}"
 
 EXTRA_OECONF = "${OECONF_OPTIONS}"
 

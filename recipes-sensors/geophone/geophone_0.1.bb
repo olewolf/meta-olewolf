@@ -7,7 +7,7 @@ SUMMARY = "Geophone data logger and visualizer"
 DESCRIPTION = "${SUMMARY}"
 PROVIDES = "geophone-logger"
 
-PR = "7"
+PR = "8"
 
 SRC_URI = " \
 	git://github.com/olewolf/geophone.git;protocol=https \
